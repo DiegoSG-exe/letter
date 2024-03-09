@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Día de la mujer</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            clifford: '#da373d',
+                        },
+                        fontFamily: {
+                            marck: ['Marck Script'],
+                        },
+                    }
+                }
+            }
+            </script>
+</head>
+<body class="min-h-full bg-[#241B35] text-white/90 font-marck relative">
+    <audio  loop   id="backgroundAudio">
+        <source  src="assets/audio.mp3" type="audio/mpeg">
+    </audio>
+    <button  onclick="playMusic()" class="p-2 hover:scale-110 transition font-sans bg-[#4d425f] rounded-full flex justify-center items-center absolute right-4 -top-24 lg:right-8 lg:-top-16"> music <i class="material-icons text-4xl font-thin ">play_arrow</i></button>
+    <main class="w-96 mx-auto flex flex-col gap-20 items-center mt-28">
+        <h1 class="text-[46px] text-center">Feliz día a la mujer más hermosa</h1>
+        <article class="flex gap-10">
+            <button class="prev"> <i class="material-icons text-6xl font-thin ">navigate_before</i></button>
+            <div class="w-[268px] h-[424px] rounded-2xl flex">
+                <img 
+                    src="assets/primer.jpeg" 
+                    alt="mi bebé"
+                    class="w-full h-full object-cover rounded-2xl transition-all"
+                    id="pri"
+                >
+                <img 
+                    src="assets/segundo.jpeg" 
+                    alt="mi bebé"
+                    class="w-full h-full object-cover rounded-2xl hidden transition-all"
+                    id="seg"
+                >
+                <video 
+                    src="assets/video.mp4"
+                    autoplay 
+                    muted 
+                    loop
+                    class="w-full h-full object-cover rounded-2xl hidden transition-all"
+                    id="ter"
+                >
+            </div>
+            <button class="next"> <i class="material-icons text-6xl font-thin">navigate_next</i></button>
+        </article>
+        <p class="text-[28px] text-center">
+            Una mujer es la poesía que respira, la belleza que inspira y la fuerza que transforma el universo con su amor
+        </p>
+    </main>
+    <script>
+        const prev = document.querySelector('.prev');
+        const next = document.querySelector('.next');
+        const pri = document.getElementById('pri');
+        const seg = document.getElementById('seg');
+        const ter = document.getElementById('ter');
+        let index = 0;
+        const images = [pri, seg, ter];
+        prev.addEventListener('click', () => {
+            images[index].classList.add('animate-out');
+            index = (index - 1 + images.length) % images.length;
+            images[index].classList.remove('hidden');
+            images[index].classList.add('animate-in');
+            images[(index + 1) % images.length].classList.add('hidden');
+            images[(index + 1) % images.length].classList.remove('animate-in');
+            images[(index + 1) % images.length].classList.remove('animate-out');
+        });
+        next.addEventListener('click', () => {
+            images[index].classList.add('animate-out');
+            index = (index + 1) % images.length;
+            images[index].classList.remove('hidden');
+            images[index].classList.add('animate-in');
+            images[(index - 1 + images.length) % images.length].classList.add('hidden');
+            images[(index - 1 + images.length) % images.length].classList.remove('animate-in');
+            images[(index - 1 + images.length) % images.length].classList.remove('animate-out');
+        });
+
+        function playMusic() {
+            var audio = document.getElementById("backgroundAudio");
+            audio.volume = 0.2;
+            audio.play()
+        }
+
+    </script>
+    <style>
+        .animate-out {
+            animation: animate-out 1s forwards;
+        }
+        .animate-in {
+            animation: animate-in 1s forwards;
+        }
+        @keyframes animate-out {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+        @keyframes animate-in {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+
+    </style>
+</body>
+
+</html>
